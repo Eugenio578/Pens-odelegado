@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instituto Agrário de Marera — A terra ensina quem a trabalha</title>
+<meta name="description" content="Instituto Agrário de Marera (IAM), Chimoio. Formação técnica agropecuária enraizada na terra de Manica.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,500&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --soil: #241812;
+    --soil-soft: #3a2a1f;
+    --terracotta: #C4501E;
+    --terracotta-deep: #9c3c14;
+    --paper: #F1E7D3;
+    --paper-dim: #e6d8bc;
+    --teal: #0D5C56;
+    --magenta: #D6136C;
+    --ink: #241812;
+    --ink-soft: #5c4c3f;
+    --line: rgba(36,24,18,0.15);
+    --line-light: rgba(241,231,211,0.22);
+
+    --display: "Fraunces", Georgia, serif;
+    --sans: "Archivo", -apple-system, sans-serif;
+    --mono: "Space Mono", monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  :focus-visible{outline:3px solid var(--terracotta); outline-offset:3px;}
+
+  .wrap{max-width:1280px; margin:0 auto; padding:0 24px;}
+
+  h1,h2,h3,h4{
+    font-family:var(--display);
+    font-weight:900;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    line-height:1.02;
+  }
+
+  .tag{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+
+  /* field-marker: número tipo etiqueta de saco de semente */
+  .field-marker{
+    display:inline-flex;
+    align-items:baseline;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--terracotta-deep);
+    margin-bottom:16px;
+  }
+  .field-marker::before{
+    content:"";
+    width:26px; height:1.5px;
+    background:var(--terracotta);
+    display:inline-block;
+  }
+
+  /* ============ HEADER ============ */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(241,231,211,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:2px solid transparent;
+    transition:border-color .25s ease, background .25s ease;
+  }
+  header.scrolled{ border-bottom-color:var(--soil); background:rgba(241,231,211,0.98); }
+
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:74px; }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:42px; height:42px; border-radius:8px;
+    background:var(--soil);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; overflow:hidden;
+  }
+  /* espaço reservado para logo oficial: trocar svg por <img src="logo-iam.png"> */
+  .brand-mark svg{width:24px;height:24px;}
+  .brand-text{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:15.5px;
+    line-height:1.1;
+    color:var(--ink);
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .brand-text span{
+    display:block;
+    font-family:var(--mono);
+    font-size:9.5px;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    font-weight:400;
+    margin-top:3px;
+    text-transform:none;
+  }
+
+  .nav-links{ display:none; align-items:center; gap:32px; }
+  .nav-links a{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--ink-soft);
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--terracotta-deep);}
+
+  .nav-cta{ display:none; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono);
+    font-weight:700; font-size:12.5px;
+    letter-spacing:0.04em; text-transform:uppercase;
+    padding:14px 22px;
+    cursor:pointer; border:2px solid var(--soil);
+    transition:transform .18s ease, background .18s ease, color .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{ background:var(--terracotta); color:var(--paper); border-color:var(--terracotta); }
+  .btn-primary:hover{ background:var(--terracotta-deep); border-color:var(--terracotta-deep); transform:translate(-2px,-2px); }
+  .btn-outline{ background:transparent; color:var(--soil); }
+  .btn-outline:hover{ background:var(--soil); color:var(--paper); }
+  .btn-light{ background:var(--paper); color:var(--soil); border-color:var(--paper); }
+  .btn-light:hover{ transform:translate(-2px,-2px); }
+  .btn-ghost-light{ background:transparent; border-color:rgba(241,231,211,0.5); color:var(--paper); }
+  .btn-ghost-light:hover{ background:var(--paper); color:var(--soil); border-color:var(--paper); }
+
+  .burger{ width:42px;height:42px; display:flex;align-items:center;justify-content:center; background:none;border:none;cursor:pointer; }
+  .burger span, .burger span::before, .burger span::after{
+    content:""; display:block; width:22px;height:2px; background:var(--ink); position:relative; transition:all .25s ease;
+  }
+  .burger span::before{position:absolute; top:-7px;}
+  .burger span::after{position:absolute; top:7px;}
+  .burger.open span{background:transparent;}
+  .burger.open span::before{transform:rotate(45deg); top:0;}
+  .burger.open span::after{transform:rotate(-45deg); top:0;}
+
+  .mobile-menu{
+    position:fixed; top:74px; left:0; right:0; bottom:0;
+    background:var(--paper); z-index:99;
+    transform:translateY(-8px); opacity:0; pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease; overflow-y:auto;
+  }
+  .mobile-menu.open{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  .mobile-menu ul{ padding:28px 24px; display:flex; flex-direction:column; }
+  .mobile-menu a{
+    font-family:var(--display); font-size:30px; font-weight:900;
+    padding:16px 0; border-bottom:2px solid var(--line); text-transform:uppercase;
+  }
+  .mobile-menu .mobile-cta{ padding:24px; }
+
+  /* ============ HERO — cartaz assimétrico ============ */
+  .hero{
+    position:relative;
+    padding-top:74px;
+    background:var(--soil);
+    color:var(--paper);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .hero-text{
+    padding:56px 0 40px;
+    position:relative;
+    z-index:2;
+  }
+  .hero-text .tag{ color:var(--terracotta); }
+  .hero-kicker{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:26px;
+  }
+  .hero-kicker .dot{ width:9px;height:9px; background:var(--terracotta); flex-shrink:0; }
+
+  .hero h1{
+    font-size:clamp(2.6rem, 11vw, 5.4rem);
+    color:var(--paper);
+    text-transform:uppercase;
+    max-width:13ch;
+  }
+  .hero h1 .accent{ color:var(--terracotta); }
+
+  .hero-sub{
+    margin-top:24px;
+    font-size:clamp(1rem, 2.4vw, 1.15rem);
+    color:rgba(241,231,211,0.78);
+    max-width:42ch;
+    font-weight:400;
+  }
+  .hero-actions{ margin-top:34px; display:flex; flex-wrap:wrap; gap:12px; }
+
+  .hero-photo{
+    position:relative;
+    aspect-ratio:4/5;
+    overflow:hidden;
+    border-top:6px solid var(--terracotta);
+  }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.05); }
+  .hero-photo-tag{
+    position:absolute; left:16px; bottom:16px;
+    background:var(--soil);
+    color:var(--paper);
+    padding:8px 14px;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    border-left:3px solid var(--terracotta);
+  }
+
+  .hero-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:2px solid rgba(241,231,211,0.2);
+  }
+  .hero-stat{
+    padding:22px 18px;
+    border-right:2px solid rgba(241,231,211,0.2);
+  }
+  .hero-stat:last-child{ border-right:none; }
+  .hero-stat b{
+    display:block; font-family:var(--display); font-weight:900;
+    font-size:clamp(1.5rem,5vw,2.2rem); color:var(--paper);
+  }
+  .hero-stat span{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.04em;
+    color:rgba(241,231,211,0.65); display:block; margin-top:6px; line-height:1.4;
+  }
+
+  /* sulco motif — traço orgânico inspirado no "telhado" do logo, agora como sulco de arado */
+  .furrow{
+    width:100%; height:34px; display:block;
+  }
+
+  /* ============ SECTION GENERIC ============ */
+  section{ padding:88px 0; position:relative; }
+
+  .section-head{ max-width:620px; margin-bottom:52px; }
+  .section-head h2{
+    font-size:clamp(2rem, 6vw, 3.1rem);
+    text-transform:uppercase;
+  }
+  .section-head p{ margin-top:18px; color:var(--ink-soft); font-size:1rem; max-width:52ch; }
+
+  /* ============ MISSÃO — texto assimétrico com número gigante ============ */
+  .mission{ background:var(--paper); }
+  .mission-layout{
+    display:grid;
+    gap:32px;
+    position:relative;
+  }
+  .mission-huge{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:clamp(5rem, 22vw, 11rem);
+    line-height:0.8;
+    color:var(--paper-dim);
+    -webkit-text-stroke:2px var(--soil);
+    color:transparent;
+    user-select:none;
+    pointer-events:none;
+  }
+  .mission-content{ position:relative; }
+  .mission-content .lead{
+    font-family:var(--display);
+    font-weight:600;
+    font-style:italic;
+    font-size:clamp(1.4rem, 4.4vw, 2rem);
+    line-height:1.32;
+    color:var(--ink);
+  }
+  .mission-content .lead .hl{ color:var(--terracotta-deep); font-style:normal; font-weight:900; }
+  .mission-content p{ margin-top:20px; color:var(--ink-soft); max-width:58ch; }
+  .mission-content p + p{ margin-top:14px; }
+
+  .location-strip{
+    margin-top:32px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--teal);
+    border:1.5px solid var(--teal);
+    padding:10px 16px;
+  }
+  .location-strip svg{ width:14px;height:14px; fill:var(--magenta); }
+
+  /* ============ STATS — etiquetas de saco de semente ============ */
+  .stats-band{ background:var(--soil); color:var(--paper); }
+  .stats-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+  }
+  .stat-item{
+    padding:36px 24px;
+    border:1px solid rgba(241,231,211,0.15);
+    position:relative;
+  }
+  .stat-item .tag{ color:var(--terracotta); display:block; margin-bottom:14px; }
+  .stat-item b{
+    display:block; font-family:var(--display); font-weight:900;
+    font-size:clamp(2.2rem,7vw,3.2rem); color:var(--paper); line-height:1;
+  }
+  .stat-item span{
+    display:block; margin-top:10px; font-size:13px; color:rgba(241,231,211,0.68); line-height:1.4;
+  }
+
+  /* ============ CURSOS — lista tipo talhão numerado ============ */
+  .programs{ background:var(--paper-dim); }
+  .program-list{ display:flex; flex-direction:column; }
+  .program-row{
+    display:grid;
+    gap:16px;
+    padding:36px 0;
+    border-top:2px solid var(--soil);
+    position:relative;
+  }
+  .program-row:last-child{ border-bottom:2px solid var(--soil); }
+  .program-num{
+    font-family:var(--display);
+    font-weight:900;
+    font-size:2.6rem;
+    color:transparent;
+    -webkit-text-stroke:1.5px var(--terracotta);
+    line-height:1;
+  }
+  .program-row h3{
+    font-size:clamp(1.4rem,4vw,1.9rem);
+    text-transform:uppercase;
+    margin-top:4px;
+  }
+  .program-row p{ color:var(--ink-soft); font-size:0.95rem; margin-top:12px; max-width:58ch; }
+  .program-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .program-tags span{
+    font-family:var(--mono); font-size:10px; letter-spacing:0.04em; text-transform:uppercase;
+    padding:6px 12px; border:1.5px solid var(--soil); color:var(--soil);
+  }
+  .program-cta{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--terracotta-deep); margin-top:18px;
+  }
+  .program-cta svg{ width:14px;height:14px; transition:transform .2s ease; }
+  .program-row:hover .program-cta svg{ transform:translateX(4px); }
+
+  /* ============ CAMPUS — mosaico irregular ============ */
+  .gallery{ background:var(--paper); }
+  .gallery-grid{ display:grid; grid-template-columns:1fr; gap:12px; }
+  .gallery-item{ position:relative; overflow:hidden; aspect-ratio:5/4; border:3px solid var(--soil); }
+  .gallery-item img{ width:100%;height:100%; object-fit:cover; transition:transform .5s ease; filter:saturate(1.08); }
+  .gallery-item:hover img{ transform:scale(1.06); }
+  .gallery-cap{
+    position:absolute; left:0; bottom:0; right:0;
+    background:var(--soil); color:var(--paper);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase;
+    padding:10px 14px;
+  }
+  .gallery-item.wide{ grid-column:span 1; }
+
+  /* ============ TESTIMONIAL ============ */
+  .testimonial{ background:var(--teal); color:var(--paper); }
+  .testimonial-inner{
+    display:grid;
+    gap:28px;
+    align-items:center;
+  }
+  .testimonial-quote{
+    font-family:var(--display);
+    font-weight:600;
+    font-style:italic;
+    font-size:clamp(1.3rem, 4vw, 1.9rem);
+    line-height:1.42;
+    color:var(--paper);
+  }
+  .testimonial-person{ margin-top:26px; display:flex; align-items:center; gap:14px; }
+  .testimonial-avatar{ width:52px;height:52px; object-fit:cover; border:2px solid var(--paper); }
+  .testimonial-person b{ font-family:var(--mono); font-size:13px; text-transform:uppercase; display:block; }
+  .testimonial-person span{ font-size:12px; color:rgba(241,231,211,0.7); }
+
+  /* ============ ADMISSÃO — timeline horizontal tipo calendário agrícola ============ */
+  .admissions{ background:var(--paper-dim); }
+  .timeline{ display:grid; grid-template-columns:1fr; gap:0; }
+  .tl-item{
+    padding:28px 0;
+    border-top:2px solid var(--soil);
+    display:grid;
+    grid-template-columns:90px 1fr;
+    gap:20px;
+  }
+  .tl-item:last-child{ border-bottom:2px solid var(--soil); }
+  .tl-when{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--terracotta-deep); font-weight:700;
+  }
+  .tl-item h4{ font-size:1.15rem; text-transform:uppercase; }
+  .tl-item p{ color:var(--ink-soft); font-size:0.92rem; margin-top:8px; max-width:50ch; }
+
+  /* ============ PARCEIROS ============ */
+  .partners{ background:var(--paper); padding:52px 0; border-top:2px solid var(--soil); border-bottom:2px solid var(--soil); }
+  .partners p{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:28px;
+  }
+  .partners-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .partner-badge{
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    height:60px; font-family:var(--mono); font-weight:700; font-size:11.5px;
+    letter-spacing:0.02em; text-transform:uppercase; color:var(--ink-soft);
+    border:1.5px solid var(--line);
+  }
+
+  /* ============ CTA FINAL ============ */
+  .cta-band{ position:relative; background:var(--soil); color:var(--paper); overflow:hidden; }
+  .cta-band-bg{ position:absolute; inset:0; opacity:0.22; }
+  .cta-band-bg img{ width:100%;height:100%; object-fit:cover; }
+  .cta-inner{ position:relative; z-index:2; max-width:640px; }
+  .cta-inner .tag{ color:var(--terracotta); }
+  .cta-inner h2{ color:var(--paper); font-size:clamp(2.1rem, 7vw, 3.4rem); text-transform:uppercase; margin-top:16px; }
+  .cta-inner p{ margin-top:20px; color:rgba(241,231,211,0.72); font-size:1.05rem; max-width:48ch; }
+  .cta-band-actions{ margin-top:32px; display:flex; flex-wrap:wrap; gap:12px; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--soil); color:rgba(241,231,211,0.82); padding:64px 0 24px; border-top:6px solid var(--terracotta); }
+  .footer-grid{ display:grid; gap:40px; }
+  .footer-brand-row{ display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+  .footer-mark{ width:48px;height:48px; border-radius:8px; background:var(--paper); display:flex;align-items:center;justify-content:center; flex-shrink:0; }
+  .footer-mark svg{ width:26px;height:26px; }
+  .footer-brand-text{ font-family:var(--display); color:var(--paper); font-size:16px; font-weight:900; line-height:1.15; text-transform:uppercase; }
+  .footer-brand-text span{ display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:0.08em; color:rgba(241,231,211,0.5); margin-top:4px; text-transform:none; }
+  .footer-desc{ font-size:13.5px; color:rgba(241,231,211,0.62); max-width:34ch; line-height:1.6; }
+  .footer-col h5{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase;
+    color:rgba(241,231,211,0.48); margin-bottom:18px;
+  }
+  .footer-col ul{ display:flex; flex-direction:column; gap:12px; }
+  .footer-col a{ font-size:13.5px; color:rgba(241,231,211,0.85); transition:color .2s ease; }
+  .footer-col a:hover{ color:var(--terracotta); }
+  .footer-contact li{ font-size:13.5px; color:rgba(241,231,211,0.85); display:flex; gap:10px; align-items:flex-start; }
+  .footer-contact svg{ width:15px;height:15px; flex-shrink:0; margin-top:2px; fill:var(--terracotta); }
+  .footer-bottom{
+    margin-top:52px; padding-top:22px; border-top:1px solid rgba(241,231,211,0.15);
+    display:flex; flex-direction:column; gap:14px; font-size:12px; color:rgba(241,231,211,0.5);
+  }
+  .footer-bottom-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .footer-socials{ display:flex; gap:10px; }
+  .footer-socials a{
+    width:34px;height:34px; border:1px solid rgba(241,231,211,0.25);
+    display:flex;align-items:center;justify-content:center; transition:all .2s ease;
+  }
+  .footer-socials a:hover{ background:var(--terracotta); border-color:var(--terracotta); }
+  .footer-socials svg{ width:14px;height:14px; fill:rgba(241,231,211,0.85); }
+
+  /* ============ WHATSAPP FLOAT ============ */
+  .wa-float{
+    position:fixed; right:18px; bottom:18px; z-index:90;
+    width:56px;height:56px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 22px rgba(0,0,0,0.3);
+    transition:transform .2s ease;
+  }
+  .wa-float:hover{ transform:scale(1.08); }
+  .wa-float svg{ width:27px;height:27px; fill:#fff; }
+
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (min-width:640px){
+    .hero-stats{ grid-template-columns:repeat(3,1fr); }
+    .partners-grid{ grid-template-columns:repeat(3,1fr); }
+    .stats-grid{ grid-template-columns:repeat(4,1fr); }
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+
+  @media (min-width:860px){
+    .nav-links{ display:flex; }
+    .nav-cta{ display:flex; gap:10px; }
+    .burger{ display:none; }
+
+    .hero-grid{ grid-template-columns:1.15fr 0.85fr; }
+    .hero-text{ padding:80px 48px 60px 0; }
+    .hero-photo{ aspect-ratio:auto; height:auto; }
+
+    .mission-layout{ grid-template-columns:0.9fr 1.4fr; align-items:flex-start; }
+    .mission-huge{ writing-mode:vertical-rl; text-orientation:mixed; font-size:clamp(4rem,14vw,8rem); line-height:0.85; }
+
+    .program-row{ grid-template-columns:120px 1fr 210px; align-items:start; }
+    .program-cta{ margin-top:0; justify-self:end; align-self:start; }
+
+    .gallery-grid{ grid-template-columns:repeat(4,1fr); grid-auto-rows:200px; }
+    .gallery-item{ aspect-ratio:auto; }
+    .gallery-item.wide{ grid-column:span 2; }
+
+    .testimonial-inner{ grid-template-columns:80px 1fr; }
+
+    .tl-item{ grid-template-columns:140px 1fr; }
+
+    .partners-grid{ grid-template-columns:repeat(5,1fr); }
+
+    .footer-grid{ grid-template-columns:1.4fr 1fr 1fr 1fr; }
+  }
+
+  @media (min-width:1100px){
+    .hero h1{ max-width:15ch; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="siteHeader">
+  <div class="wrap nav">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <!-- ESPAÇO RESERVADO PARA O LOGOTIPO OFICIAL -->
+        <!-- Substituir por: <img src="logo-iam.png" alt="IAM" style="width:100%;height:100%;object-fit:contain;"> -->
+        <svg viewBox="0 0 100 100" fill="none">
+          <path d="M18 44 L50 16 L82 44" stroke="#D6136C" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="50" cy="66" r="6" fill="#D6136C"/>
+        </svg>
+      </span>
+      <span class="brand-text">Instituto<br>Agrário de Marera<span>CHIMOIO · MANICA</span></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="#missao">Instituto</a>
+      <a href="#cursos">Cursos</a>
+      <a href="#campus">Campus</a>
+      <a href="#admissao">Admissão</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="#admissao" class="btn btn-outline">Candidato</a>
+      <a href="#admissao" class="btn btn-primary">Candidatar-me</a>
+    </div>
+
+    <button class="burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#missao">Instituto</a></li>
+    <li><a href="#cursos">Cursos</a></li>
+    <li><a href="#campus">Campus</a></li>
+    <li><a href="#admissao">Admissão</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="mobile-cta">
+    <a href="#admissao" class="btn btn-primary" style="width:100%;justify-content:center;">Candidatar-me agora</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-text reveal">
+        <div class="hero-kicker">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="tag">Ensino técnico agrário — Chimoio</span>
+        </div>
+        <h1>A terra<br>ensina quem<br>a <span class="accent">trabalha</span>.</h1>
+        <p class="hero-sub">No Instituto Agrário de Marera não há aula sem enxada. Formamos técnicos que já sujaram as mãos antes de assinar o diploma — em agronomia, zootecnia e gestão rural, ao serviço de Manica.</p>
+        <div class="hero-actions">
+          <a href="#cursos" class="btn btn-primary">Ver cursos</a>
+          <a href="#missao" class="btn btn-ghost-light">Conhecer o Instituto</a>
+        </div>
+      </div>
+
+      <div class="hero-photo reveal">
+        <img src="https://i.imgur.com/VHwoOuK.png" alt="Trabalho agrícola no campo, mãos na terra">
+        <span class="hero-photo-tag">Campo de prática — Marera</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="hero-stats">
+      <div class="hero-stat"><b>1998</b><span>Ano de fundação</span></div>
+      <div class="hero-stat"><b>45 ha</b><span>Campos de prática e estação experimental</span></div>
+      <div class="hero-stat"><b>92%</b><span>Empregabilidade dos graduados</span></div>
+    </div>
+  </div>
+
+  <!-- sulco de arado: assinatura gráfica derivada do gesto do telhado no logo -->
+  <svg class="furrow" viewBox="0 0 1440 34" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 20 Q 120 4, 240 20 T 480 20 T 720 20 T 960 20 T 1200 20 T 1440 20" stroke="#C4501E" stroke-width="3" fill="none" opacity="0.9"/>
+  </svg>
+</section>
+
+<!-- ============ MISSÃO ============ -->
+<section class="mission" id="missao">
+  <div class="wrap">
+    <div class="mission-layout">
+      <div class="mission-huge reveal" aria-hidden="true">IAM</div>
+      <div class="mission-content reveal">
+        <div class="field-marker">O Instituto</div>
+        <p class="lead">Um diploma não alimenta ninguém. <span class="hl">Uma colheita bem feita, sim.</span> É por isso que aqui se aprende com as botas enterradas no solo de Manica.</p>
+        <p>Fundado para responder à procura de mão-de-obra qualificada no sector agrário, o Instituto Agrário de Marera combina currículo técnico certificado, campos de prática reais e parcerias com cooperativas e empresas da região.</p>
+        <p>Os nossos estudantes não saem só com um certificado — saem com mãos que já lavraram, equipamento que já operaram e problemas de campo que já resolveram antes de formar.</p>
+        <div class="location-strip">
+          <svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+          Marera, Chimoio — Manica
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats-band">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <span class="tag">Talhão 01</span>
+        <b>+1.200</b>
+        <span>Técnicos formados desde a fundação</span>
+      </div>
+      <div class="stat-item reveal">
+        <span class="tag">Talhão 02</span>
+        <b>38</b>
+        <span>Docentes e técnicos especializados</span>
+      </div>
+      <div class="stat-item reveal">
+        <span class="tag">Talhão 03</span>
+        <b>6</b>
+        <span>Cursos técnicos especializados</span>
+      </div>
+      <div class="stat-item reveal">
+        <span class="tag">Talhão 04</span>
+        <b>14</b>
+        <span>Parcerias com cooperativas e empresas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CURSOS ============ -->
+<section class="programs" id="cursos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="field-marker">Oferta formativa</div>
+      <h2>Cursos com terra debaixo da unha</h2>
+      <p>Currículo alinhado ao Ministério da Agricultura, com estágio obrigatório em explorações agrícolas e agroindústrias parceiras.</p>
+    </div>
+
+    <div class="program-list">
+      <div class="program-row reveal">
+        <span class="program-num">01</span>
+        <div>
+          <h3>Técnico de Agronomia</h3>
+          <p>Produção vegetal, maneio de solos, protecção de culturas e sistemas de irrigação aplicados às condições de Manica.</p>
+          <div class="program-tags"><span>3 anos</span><span>Diurno</span><span>Estágio incluído</span></div>
+        </div>
+        <a href="#admissao" class="program-cta">Plano curricular <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="program-row reveal">
+        <span class="program-num">02</span>
+        <div>
+          <h3>Técnico de Zootecnia</h3>
+          <p>Maneio animal, nutrição, sanidade e reprodução em pecuária bovina, caprina e avícola de pequena e média escala.</p>
+          <div class="program-tags"><span>3 anos</span><span>Diurno</span><span>Estágio incluído</span></div>
+        </div>
+        <a href="#admissao" class="program-cta">Plano curricular <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="program-row reveal">
+        <span class="program-num">03</span>
+        <div>
+          <h3>Gestão e Extensão Rural</h3>
+          <p>Organização de cooperativas, microfinanças agrícolas e metodologias de extensão junto de comunidades produtoras.</p>
+          <div class="program-tags"><span>2 anos</span><span>Pós-laboral</span></div>
+        </div>
+        <a href="#admissao" class="program-cta">Plano curricular <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="program-row reveal">
+        <span class="program-num">04</span>
+        <div>
+          <h3>Silvicultura e Ambiente</h3>
+          <p>Gestão sustentável de florestas, viveiros e recuperação de áreas degradadas, com componente de mudanças climáticas.</p>
+          <div class="program-tags"><span>3 anos</span><span>Diurno</span></div>
+        </div>
+        <a href="#admissao" class="program-cta">Plano curricular <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+
+      <div class="program-row reveal">
+        <span class="program-num">05</span>
+        <div>
+          <h3>Curso Livre: Agricultura de Precisão</h3>
+          <p>Formação curta para produtores e técnicos em uso de dados, sensores de solo e planeamento de época agrícola.</p>
+          <div class="program-tags"><span>6 semanas</span><span>Sábados</span></div>
+        </div>
+        <a href="#admissao" class="program-cta">Plano curricular <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAMPUS ============ -->
+<section class="gallery" id="campus">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="field-marker">O campus</div>
+      <h2>45 hectares onde a teoria suja as botas</h2>
+      <p>Campos de prática, estufas, estação experimental e laboratório de solos, a poucos minutos do centro de Chimoio.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item wide reveal">
+        <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?q=80&w=1200&auto=format&fit=crop" alt="Campos de prática em terraços">
+        <span class="gallery-cap">Campos de prática — sequeiro e regadio</span>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=900&auto=format&fit=crop" alt="Estufa didáctica">
+        <span class="gallery-cap">Estufas didácticas</span>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?q=80&w=900&auto=format&fit=crop" alt="Colheita de milho">
+        <span class="gallery-cap">Estação de milho e leguminosas</span>
+      </div>
+      <div class="gallery-item reveal">
+        <img src="https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=900&auto=format&fit=crop" alt="Laboratório de solos">
+        <span class="gallery-cap">Laboratório de solos e sementes</span>
+      </div>
+      <div class="gallery-item wide reveal">
+        <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?q=80&w=1200&auto=format&fit=crop" alt="Aula prática de campo">
+        <span class="gallery-cap">Aulas práticas de campo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIAL ============ -->
+<section class="testimonial">
+  <div class="wrap">
+    <div class="testimonial-inner reveal">
+      <svg viewBox="0 0 44 34" style="width:56px;fill:rgba(241,231,211,0.35);"><path d="M0 34V19.4C0 8.1 6.6 1.2 17.6 0l1.8 4.9C12.6 6.6 9.4 10.6 9 16h9v18H0zm24.4 0V19.4C24.4 8.1 31 1.2 42 0l1.8 4.9C37 6.6 33.8 10.6 33.4 16h9v18H24.4z"/></svg>
+      <div>
+        <p class="testimonial-quote">Vim para o IAM sem nunca ter tocado um trator. Saí a gerir a produção de uma cooperativa com 40 famílias associadas. Aqui aprende-se fazendo — não é teoria de sala fechada.</p>
+        <div class="testimonial-person">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=200&auto=format&fit=crop" alt="">
+          <div>
+            <b>Adélia Machaieie</b>
+            <span>Técnica de Agronomia, turma de 2022</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ADMISSÃO ============ -->
+<section class="admissions" id="admissao">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="field-marker">Processo de admissão</div>
+      <h2>Quatro épocas até à matrícula</h2>
+      <p>As candidaturas para o próximo ano lectivo decorrem entre Agosto e Outubro, com exame de admissão em Novembro.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <span class="tl-when">Ago — Out</span>
+        <div>
+          <h4>Submissão de candidatura</h4>
+          <p>Entrega de certificado da 10ª/12ª classe, cópia do BI e formulário preenchido na secretaria ou via WhatsApp.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <span class="tl-when">Novembro</span>
+        <div>
+          <h4>Exame de admissão</h4>
+          <p>Prova escrita de Matemática e Biologia, realizada no campus de Marera.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <span class="tl-when">Dezembro</span>
+        <div>
+          <h4>Entrevista e resultados</h4>
+          <p>Entrevista curta com a direcção pedagógica e publicação da lista de admitidos.</p>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <span class="tl-when">Fevereiro</span>
+        <div>
+          <h4>Matrícula e início das aulas</h4>
+          <p>Confirmação de vaga, pagamento de propina inicial e acolhimento aos novos estudantes.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:44px;display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="#contacto" class="btn btn-primary">Iniciar candidatura</a>
+      <a href="#contacto" class="btn btn-outline">Falar com a secretaria</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARCEIROS ============ -->
+<section class="partners">
+  <div class="wrap">
+    <p>Parceiros institucionais e de estágio</p>
+    <div class="partners-grid">
+      <div class="partner-badge">Ministério da Agricultura</div>
+      <div class="partner-badge">Governo da Província de Manica</div>
+      <div class="partner-badge">Cooperativa Agrícola de Chimoio</div>
+      <div class="partner-badge">IIAM</div>
+      <div class="partner-badge">Câmara Municipal de Chimoio</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="cta-band" id="contacto">
+  <div class="cta-band-bg">
+    <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=1600&auto=format&fit=crop" alt="">
+  </div>
+  <div class="wrap cta-inner">
+    <div class="field-marker">Fale connosco</div>
+    <h2>Pronto para sujar as mãos de conhecimento?</h2>
+    <p>A nossa secretaria responde em português, das 07h30 às 15h30, de segunda a sexta.</p>
+    <div class="cta-band-actions">
+      <a href="https://wa.me/258840000000" class="btn btn-primary">Falar no WhatsApp</a>
+      <a href="mailto:info@iammarera.ac.mz" class="btn btn-ghost-light">info@iammarera.ac.mz</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-row">
+          <span class="footer-mark">
+            <svg viewBox="0 0 100 100" fill="none">
+              <path d="M18 44 L50 16 L82 44" stroke="#D6136C" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="50" cy="66" r="6" fill="#D6136C"/>
+            </svg>
+          </span>
+          <span class="footer-brand-text">Instituto Agrário<br>de Marera<span>ENSINO TÉCNICO-PROFISSIONAL</span></span>
+        </div>
+        <p class="footer-desc">Formação agropecuária enraizada na terra de Manica, ao serviço dos produtores e comunidades de Moçambique desde 1998.</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Instituto</h5>
+        <ul>
+          <li><a href="#missao">Sobre nós</a></li>
+          <li><a href="#cursos">Cursos</a></li>
+          <li><a href="#campus">Campus</a></li>
+          <li><a href="#">Corpo docente</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Admissão</h5>
+        <ul>
+          <li><a href="#admissao">Como candidatar-se</a></li>
+          <li><a href="#">Propinas e bolsas</a></li>
+          <li><a href="#">Calendário académico</a></li>
+          <li><a href="#">Perguntas frequentes</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contacto</h5>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg> Estrada de Marera, Chimoio, Manica</li>
+          <li><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.7 5 6.5 6.5l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 3.4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg> +258 84 000 0000</li>
+          <li><svg viewBox="0 0 24 24"><path d="M2 5.5A2.5 2.5 0 014.5 3h15A2.5 2.5 0 0122 5.5v13a2.5 2.5 0 01-2.5 2.5h-15A2.5 2.5 0 012 18.5v-13zm2.1.3l7.9 6.1 7.9-6.1H4.1zM4 8.2v10.3h16V8.2l-8 6.2-8-6.2z"/></svg> info@iammarera.ac.mz</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-row">
+        <span>© 2026 Instituto Agrário de Marera. Todos os direitos reservados.</span>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3.1 0 4.1.1 1 .1 1.7.2 2.3.5.6.2 1.1.6 1.6 1.1.5.5.8.9 1.1 1.6.3.6.4 1.3.5 2.3.1 1 .1 1.4.1 4.1s0 3.1-.1 4.1c-.1 1-.2 1.7-.5 2.3-.2.6-.6 1.1-1.1 1.6-.5.5-.9.8-1.6 1.1-.6.3-1.3.4-2.3.5-1 .1-1.4.1-4.1.1s-3.1 0-4.1-.1c-1-.1-1.7-.2-2.3-.5-.6-.2-1.1-.6-1.6-1.1-.5-.5-.8-.9-1.1-1.6-.3-.6-.4-1.3-.5-2.3C2 15.1 2 14.7 2 12s0-3.1.1-4.1c.1-1 .2-1.7.5-2.3.2-.6.6-1.1 1.1-1.6.5-.5.9-.8 1.6-1.1.6-.3 1.3-.4 2.3-.5C8.9 2 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.2-8.4a1.2 1.2 0 100-2.3 1.2 1.2 0 000 2.3z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.5-.4-5.2a3 3 0 00-2.1-2.1C18.8 4 12 4 12 4s-6.8 0-8.5.7A3 3 0 001.4 6.8C1 8.5 1 12 1 12s0 3.5.4 5.2a3 3 0 002.1 2.1C5.2 20 12 20 12 20s6.8 0 8.5-.7a3 3 0 002.1-2.1C23 15.5 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a>
+        </div>
+      </div>
+      <div>Desenvolvido para o IAM · Chimoio, Moçambique</div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/258840000000" class="wa-float" aria-label="Contactar via WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2a8.1 8.1 0 01-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1112 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.2 0-.3 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 1.9 3 4.7 4.1.7.3 1.2.4 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
+</a>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 12);
+  }, { passive:true });
+
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
+  }));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
